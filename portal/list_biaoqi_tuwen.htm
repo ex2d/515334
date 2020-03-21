@@ -1,0 +1,109 @@
+<!--{template common/header}-->
+<!--[name]标奇创意-文章列表图文[/name]-->
+<!--{eval $list = array();}-->
+<!--{eval $wheresql = category_get_wheresql($cat);}-->
+<!--{eval $list = category_get_list($cat, $wheresql, $page);}-->
+
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">首页</a> <em>&rsaquo;</em>
+		<a href="$_G[setting][navs][1][filename]">{lang portal}</a> <em>&rsaquo;</em>
+		<!--{loop $cat[ups] $value}--> <a href="{$portalcategory[$value['catid']]['caturl']}">$value[catname]</a><em>&rsaquo;</em><!--{/loop}-->
+		$cat[catname]
+	</div>	
+</div>
+<!--{ad/text/wp a_t}-->
+<style id="diy_style" type="text/css"></style>
+<div class="wp">
+	<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+<div class="biaoqicn_art">
+	<!--{if $cat[subs]}-->
+	<span>
+		{lang sub_category}:
+		<!--{eval $i = 1;}-->
+		<!--{loop $cat[subs] $value}-->
+		<!--{if $i != 1}-->/<!--{/if}--><a href="{$portalcategory[$value['catid']]['caturl']}">$value[catname]</a><!--{eval $i--;}-->
+		<!--{/loop}-->
+	</span>
+	<!--{/if}-->
+	<h2>$cat[catname]<!--{if $_G[setting][rssstatus] && !$_GET['archiveid']}--><em class="biaoqicn_rss"><a href="portal.php?mod=rss&catid=$cat[catid]" target="_blank" title="RSS" style="color:#ff8b3d;">RSS{lang rss_subscribe_this}</a></em><!--{/if}--></h2>
+</div>
+<div id="ct" class="ct2 wp cl">
+	<div class="mn">
+		<!--{ad/articlelist/mbm hm/1}--><!--{ad/articlelist/mbm hm/2}-->
+		<!--[diy=listcontenttop]--><div id="listcontenttop" class="area"></div><!--[/diy]-->
+			<div class="xld biaoqicn_p_wzlist">
+			<!--{eval $nn = 0;}-->
+			<!--{loop $list['list'] $value}-->
+				<!--{eval $highlight = article_title_style($value);}-->
+				<!--{eval $article_url = fetch_article_url($value);}-->				
+				<!--{eval $nn++;}-->
+				<div class="biaoqicn_artlist biaoqicnact fadeInUp cl">
+					<ul>
+						<!--{if $value[pic]}-->
+						      <div class="wzpic">
+							        <a href="$article_url" target="_blank">
+									    <img src="$value[pic]" alt="$value[title]">
+						                <span class="mark"><!--{if $value[catname]}-->$value[catname]<!--{/if}--></span>
+									</a>
+							  </div>
+						<!--{/if}-->
+						
+					<div class="wzxq" {if !$value[pic]}style=" width: 100%;"{/if}>
+						<li class="wzbt"><a href="$article_url" target="_blank" $highlight>{eval echo cutstr($value[title],60,'');}</a><!--{if $value[status] == 1}--> <span>({lang moderate_need})</span><!--{/if}--></li>						
+						<li class="wznr">$value[summary]</li>
+						<li class="wztime">
+						   <a href="home.php?mod=space&uid={authorid}" target="_blank" class="colorlink">$value[username]</a>&nbsp;发布于&nbsp;&nbsp;$value[dateline]&nbsp;&nbsp;
+							<!--{if $_G['group']['allowmanagearticle'] || ($_G['group']['allowpostarticle'] && $value['uid'] == $_G['uid'] && (empty($_G['group']['allowpostarticlemod']) || $_G['group']['allowpostarticlemod'] && $value['status'] == 1)) || $categoryperm[$value['catid']]['allowmanage']}-->
+							&nbsp;&nbsp;&nbsp;&nbsp;<label><a href="portal.php?mod=portalcp&ac=article&op=edit&aid=$value[aid]">{lang edit}</a></label><span class="pipe"> | </span><label><a href="portal.php?mod=portalcp&ac=article&op=delete&aid=$value[aid]" id="article_delete_$value[aid]" onclick="showWindow(this.id, this.href, 'get', 0);">{lang delete}</a></label>
+							<!--{/if}-->
+						</li>
+					</div>
+					</ul>
+				</div>
+			<!--{/loop}-->
+			</div>
+			<!--[diy=listloopbottom]--><div id="listloopbottom" class="area"></div><!--[/diy]-->
+			<div class="pgs cl">	
+				<!--{ad/articlelist/mbm hm/3}--><!--{ad/articlelist/mbm hm/4}-->
+				<!--{if $list['multi']}-->{$list['multi']}<!--{/if}-->
+	
+			</div>
+		</div>
+
+<div class="sd sd_allbox">
+     
+   <div class="biaoqi_forum_ps cl">
+            <a href="portal.php?mod=portalcp&ac=article&catid=$cat[catid]" class="post-button">发布文章</a>
+	     <!--{if $_G['cache']['plugin']['dsu_paulsign']}-->
+            <a href="plugin.php?id=dsu_paulsign:sign" target="_blank" class="sign-button">签到Sign</a>
+	     <!--{else}-->
+		    <a href="http://addon.dismall.com/?@dsu_paulsign.plugin" target="_blank" class="sign-button">签到Sign</a>
+		<!--{/if}-->
+   </div>
+
+<div class="main-right-box biaoqicnact bounceInLeft cl">
+<!--[diy=biaoqicn_b_diy5]--><div id="biaoqicn_b_diy5" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="main-right-box biaoqicnact bounceInRight cl">
+<!--[diy=biaoqicn_b_diy8]--><div id="biaoqicn_b_diy8" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="main-right-box biaoqicnact bounceInLeft cl">
+<!--[diy=biaoqicn_b_diy6]--><div id="biaoqicn_b_diy6" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="main-right-box biaoqicnact bounceInRight cl">
+   <!--[diy=biaoqicn_b_diy7]--><div id="biaoqicn_b_diy7" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="main-right-box biaoqicnact bounceInLeft cl">
+   <!--[diy=biaoqicn_b_diyzy]--><div id="biaoqicn_b_diyzy" class="area"></div><!--[/diy]-->
+</div>	
+		
+</div>
+
+</div>
+<!--{template common/footer}-->
